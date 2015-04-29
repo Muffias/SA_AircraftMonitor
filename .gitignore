@@ -1,0 +1,10 @@
+*.class
+*.exe
+*.jar
+*.jdproj
+./32bit
+./.settings
+./bin
+./JArchitectOut
+./META-INF
+./redis
