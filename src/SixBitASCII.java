@@ -1,8 +1,4 @@
-
-
-
-
-public final class SixBitASCII {
+public class SixBitASCII {
 public static String bin2ASCII(String binString)
 {
 	String result = "";
@@ -15,8 +11,6 @@ public static String bin2ASCII(String binString)
 			else
 				result =  result + (char) (Integer.parseInt(binString.substring(i,i+6),2));
 		}
-		
-		
 	}
 	else
 		result = "404 Plane not Found (SIXBIT ERROR)";

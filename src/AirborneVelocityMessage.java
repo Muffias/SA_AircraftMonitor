@@ -2,12 +2,15 @@
 
 
 
-public final class AirborneVelocityMessage extends AdsMessage{
+public class AirborneVelocityMessage extends AdsMessage{
+	//int messageSubTypeD;
 										
 	//Constructor for Subtype 1/2:
 	public AirborneVelocityMessage(String binarySentence, int messageTypeD,int originatorD,long time) 
 	{
 		super(binarySentence,messageTypeD, originatorD, time);
+		//this.messageSubTypeD = Integer.parseInt(binarySentence.substring(37,40),2);
+
 	}
 
 	
@@ -197,9 +200,15 @@ public final class AirborneVelocityMessage extends AdsMessage{
 	//END SUBTYPE 3/4 getter Methods / Decoding
 	public void print()
 	{
+		/*System.out.println("-------------------------------------------");
+		DateFormat simpleDate = new SimpleDateFormat("EEEE', 'dd.MM.YYYY', 'H:m:ss.S");
+		System.out.println("Message(Sub)Type: \t\t("+messageSubTypeD+")"+messageTypeD);
+		System.out.println("Originator: \t\t\t"+originatorD);
+		System.out.println("Zeit: \t\t\t\t"+simpleDate.format(tStamp));*/
 		super.print();
 		System.out.println("MessageSubType: \t\t\t"+getMessageSubType());   
 		System.out.println("navigationAccuracy: \t\t"+ getNavigationAccuracy());
+		//System.out.println("heading Degrees: "+ headingDegrees);
 		System.out.println("vertical Rate Source: \t\t"+ this.getVerticalRateSource());
 		System.out.println("vertical Rate Sign: \t\t" + this.getVerticalRateSign());
 		System.out.println("Difference Baro-Alto: \t\t"+this.getDeltaBaroAltoAttitude());
@@ -228,13 +237,30 @@ public final class AirborneVelocityMessage extends AdsMessage{
 	public String toJedisString()
 	{
 		String res = super.toJedisString();
+		//res += getAirspeed()+";"+getHeadingDegrees()+":";
 		res += ";"+getAirspeed()+";"+getHeadingDegrees();
 		return res;
 	}
 
-	
-	
-	
-	
-}
 
+	public String toString()
+	{
+		return super.toString()+
+		", VerticalRateSource(): " +getVerticalRateSource()+
+		", VerticalRateSign(): " +getVerticalRateSign()+
+		", VerticalRate(): " +getVerticalRate()+
+		", GeoGreaterBaroAttitude(): " +getGeoGreaterBaroAttitude()+
+		", DeltaBaroAltoAttitude(): " +getDeltaBaroAltoAttitude()+
+		", NavigationAccuracy(): " +getNavigationAccuracy()+
+		", MovingEast(): " +getMovingEast()+
+		", MovingWest(): " +getMovingWest()+
+		", EastWestVelocity(): " +getEastWestVelocity()+
+		", MovingSouth(): " +getMovingSouth()+
+		", NorthSouthVelocity(): " +getNorthSouthVelocity()+
+		", HeadingStatusAvailable(): " +getHeadingStatusAvailable()+
+		", HeadingDegrees(): " +getHeadingDegrees()+
+		", TrueAirspeedType(): " +getTrueAirspeedType()+
+		", Airspeed(): " +getAirspeed()+
+		", MessageSubType(): " +getMessageSubType()+
+	}/* toString() hinzugefuegt - glkeit00 */
+}

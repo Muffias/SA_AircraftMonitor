@@ -11,13 +11,19 @@ import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
 //import com.sun.net.httpserver.HttpServer;
 
-public final class WebServer {
+public class WebServer {
 
-   public static final class ActiveKML implements HttpHandler 
-   {
-        public void handle(HttpExchange t) throws IOException
-        {
-            String response = aircraft_active_kml();
+   public static class ActiveKML implements HttpHandler {
+	   private static ActiveKML instance;
+	   private ActiveKML(){}
+	   public static ActiveKML getInstance()
+	   {
+		   if(instance == null)
+			   instance = new ActiveKML();
+		   return instance;
+	   }
+        public void handle(HttpExchange t) throws IOException {
+            String response = aircraft_active_kml();//aircraft_active_kml(); //new String(Files.readAllBytes(Paths.get("active.kml")));//aircraft_active_kml(); // create a kml response
             t.sendResponseHeaders(200, response.length());
             OutputStream os = t.getResponseBody();
             os.write(response.getBytes());
@@ -26,20 +32,26 @@ public final class WebServer {
     }
 
 
-  public static final class MapBasic implements HttpHandler
-  {	 
-	  public void handle ( HttpExchange t ) throws IOException
+  public   static class MapBasic implements HttpHandler {
+	  private static MapBasic instance;
+	  private MapBasic(){};
+	  public static MapBasic getInstance()
 	  {
-		   System.err.println ( "map.basic acessed" ); // send basicMap.html
-		   String response = new String ( Files.readAllBytes (Paths.get("basicMap.html") ) );
-		   t.sendResponseHeaders ( 200, response.length() );
-		   OutputStream os = t.getResponseBody();
-		   os.write ( response.getBytes() );
-		   os.close ();
+		  if(instance == null)
+			  instance = new MapBasic();
+		  return instance;
 	  }
+public void handle ( HttpExchange t ) throws IOException {
+   System.err.println ( "map.basic acessed" ); // send basicMap.html
+   String response = new String ( Files.readAllBytes (Paths.get("basicMap.html") ) );
+   t.sendResponseHeaders ( 200, response.length() );
+   OutputStream os = t.getResponseBody();
+   os.write ( response.getBytes() );
+   os.close ();
+}
     }
 
-    private final static Jedis jed = new Jedis ("localhost");
+    private static Jedis jed = new Jedis ("localhost");
     private static String aircraft_active_kml () {
     //boolean print = false;	
 StringBuilder kml = new StringBuilder (256);
@@ -72,4 +84,11 @@ for ( String k : keys )
 	return kml.toString();
 }
 
-}
+	public String toString()
+	{
+		return super.toString()+
+			", Instance: " +getInstance()+
+			", ResponseBody: " +getResponseBody()+
+			", Bytes: " +getBytes()+
+	}/* toString() hinzugefuegt - glkeit00 */
+}	
