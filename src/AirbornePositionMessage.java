@@ -1,6 +1,6 @@
 
 
-public class AirbornePositionMessage extends AdsMessage{
+public final class AirbornePositionMessage extends AdsMessage{
 
 	public AirbornePositionMessage(String binarySentence,int messageTypeD, int originatorD, long time) 
 	{
@@ -48,22 +48,16 @@ public class AirbornePositionMessage extends AdsMessage{
 		System.out.println("Latitude: \t\t\t"+getLatitude());
 		System.out.println("Longitude: \t\t\t"+getLongitude());
 	}
-
+	public String toString()
+	{
+		return super.toString()+", Lat: "+getLatitude()+", Lon: "+getLongitude();
+	}
 	public String toJedisString()
 	{
 		String res = super.toJedisString();
-		//res += binarySentence+";"+tStamp.getTime()+":";
 		res += ";"+binarySentence+";"+tStamp.getTime();
 		return res;
 	}
+	
 
-	public String toString()
-	{
-		return super.toString()+
-			", TimeFlag: " +getTimeFlag()+
-			", Longitude: "+getLongitude()+
-			", Altitude: " +getAltitude()+
-			", Latitude: " +getLatitude()+
-
-	}/* toString() hinzugefuegt - glkeit00 */
 }

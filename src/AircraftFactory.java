@@ -1,36 +1,35 @@
-public class AircraftFactory {
+public final class AircraftFactory
+{
 	private static AircraftFactory instance;
 	
 	private AircraftFactory(){}
+	
 	public static AircraftFactory getInstance()
 	{
 		if(instance == null)
 			instance = new AircraftFactory();
 		return instance;
 	}
-	public static Aircraft message2Aircraft(String msg)
+	public Aircraft message2Aircraft(String msg)
 	{
 		String entry [] = msg.split(";");
 		
-		//return new Aircraft(Integer.parseInt(msg.substring(msg.indexOf(',')+1,msg.indexOf('?'))));
+
 		return new Aircraft(Integer.parseInt(entry[1]));
 	}
-	public static void updateIdentification(String msg, Aircraft aircraft)
+	public void updateIdentification(String msg, Aircraft aircraft)
 	{
 		String entry [] = msg.split(";");
-		//aircraft.setFlightNo(msg.substring(msg.indexOf('?')+1,msg.indexOf(';')));
 		aircraft.setFlightNo(entry[2]);
 	}
-	public static void updateVelocity(String msg, Aircraft aircraft)
+	public void updateVelocity(String msg, Aircraft aircraft)
 	{
 		String entry [] = msg.split(";");
-		System.out.println("Update"+msg);//updateVelo;"+entry[0]+entry[1]+entry[2]+entry[3]+entry[4]);
-		/*aircraft.setVelocity(Double.parseDouble(msg.substring(msg.indexOf('?')+1,msg.indexOf(';'))));
-		aircraft.setVeloAngle(Double.parseDouble(msg.substring(msg.indexOf(';')+1,msg.indexOf(':'))));*/
+		System.out.println("Update"+msg);
 		aircraft.setVelocity(Double.parseDouble(entry[2]));
 		aircraft.setVeloAngle(Double.parseDouble(entry[3]));
 	}
-	public static void updatePosition(String msg, Aircraft aircraft)
+	public void updatePosition(String msg, Aircraft aircraft)
 	{
 		
 		AirbornePositionMessage adsMsg = new AirbornePositionMessage(msg);
@@ -50,6 +49,7 @@ public class AircraftFactory {
 		AirbornePositionMessage obj_even=aircraft.getEven();
 		AirbornePositionMessage obj_odd=aircraft.getOdd();
 		int i=aircraft.getLastOdd();
+		NumberOfLongitudeZones calcNL = NumberOfLongitudeZones.getInstance();
 		if(obj_even != null && obj_odd != null)
 		{
 			boolean lonZonesEqual = true;
@@ -57,8 +57,8 @@ public class AircraftFactory {
 			int j = (int) Math.floor(( (double)(59*obj_even.getLatitude()-60*obj_odd.getLatitude()) / 131072.0)+0.5); //zone index 
 			double rlat0 = AirDlat0 * (((double)modulo(j, 60) + ((double)obj_even.getLatitude()/131072.0))); //calculate recovered latitude 
 			double rlat1 = AirDlat1 * (((double)modulo(j, 59) + ((double)obj_odd.getLatitude()/131072.0))); //last one received will be considered the actual position 
-			int nl = NumberOfLongitudeZones.nl(rlat0); //will be often used later on 
-			if (nl != NumberOfLongitudeZones.nl(rlat1))
+			int nl = calcNL.nl(rlat0); //will be often used later on 
+			if (nl != calcNL.nl(rlat1))
 				lonZonesEqual = false;//  if Longitude zones are not the same 
 			int m = (int) Math.floor(( (double)( ((nl-1)*obj_even.getLongitude())-(nl*obj_odd.getLongitude())) / 131072.0)+0.5); 
 			double rlong0 = (360.0/(double)(nl))*( (double)modulo(m, nl) + ((double)obj_even.getLongitude()/131072.0) ); //recovered longitude 

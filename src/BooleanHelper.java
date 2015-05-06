@@ -1,4 +1,8 @@
-public class BooleanHelper {
+
+
+
+
+public final class BooleanHelper {
 public static boolean integer2Boolean(int val)
 {
 	if(val == 0)

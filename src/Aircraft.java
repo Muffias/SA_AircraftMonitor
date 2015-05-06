@@ -1,15 +1,11 @@
-public class Aircraft {
-
-private double 	velocity; 	//absolute Velocity of the aircraft
-private double 	veloAngle;	//Angle in degrees for the direction of flight
-private int	lastOdd;
-private int	aircraftID;
-private double latitude;
-private double longitude;
+public final class Aircraft {
+private double 	velocity, //absolute Velocity of the aircraft
+				veloAngle;	//Angle in degrees for the direction of flight
+private int		lastOdd;
+private final int aircraftID;
 private AirbornePositionMessage msg_even,msg_odd;
-
-String flightNo=new String("");
-
+private double latitude,longitude;
+private String flightNo=new String("");
 public Aircraft(int aircraftID)
 {
 	this.aircraftID = aircraftID;
@@ -20,8 +16,7 @@ public Aircraft(int aircraftID)
 	flightNo = "";
 }
 
-//aircraftID+","+flightNo+"."+velocity+";"+veloAngle+":"+latitude+"-"+longitude+"_"+lastOdd+"+"+msg_even.toJedisString()+"*"+msg_odd.toJedisString()+"#";
-public Aircraft(String jedisString)
+public Aircraft(String jedisString)//aircraftID+","+flightNo+"."+velocity+";"+veloAngle+":"+latitude+"-"+longitude+"_"+lastOdd+"+"+msg_even.toJedisString()+"*"+msg_odd.toJedisString()+"#";
 {
 	String even = new String("");
 	String odd = new String ("");
@@ -39,7 +34,6 @@ public Aircraft(String jedisString)
 		if(entry.length==9)
 			odd=entry[8];
 	}
-	//System.out.println("Entry 7 : "+entry[7]);
 	if (!even.equals(""))
 		msg_even = new AirbornePositionMessage(even);
 	if (!odd.equals(""))
@@ -113,17 +107,6 @@ public double getVeloAngle()
 {
 	return veloAngle;
 }
-
-public double getLatitude()
-{
-	return latitude;
-}
-
-public double getLongitude()
-{
-	return longitude;
-}
-
 public void print()
 {
 	System.out.println("********************************");
@@ -145,7 +128,6 @@ public String toJedisKey()
 }
 public String toJedisString()
 {
-	//String res = aircraftID+","+flightNo+"!"+velocity+";"+veloAngle+":"+latitude+"?"+longitude+"_"+lastOdd+"+";
 	String res = aircraftID+","+flightNo+","+velocity+","+veloAngle+","+latitude+","+longitude+","+lastOdd+",";
 	if(msg_even != null)
 		res += msg_even.toJedisString();
@@ -155,16 +137,20 @@ public String toJedisString()
 	//res +=",";
 	return res;
 }
+public String toString()
+{
+	return super.toString()+
+		", velocity: " +getVelocity()+
+		", veloAngle: " +getVeloAngle()+
+		", lastOdd: " +getLastOdd()+
+		", aircraftID: " +getID();
+		//", latitude: " +getLatitude()+
+		//", longitude: " +getLongitude();
 
-	public String toString()
-	{
-		return super.toString()+
-			", velocity: " +getVelocity()+
-			", veloAngle: " +getVeloAngle()+
-			", lastOdd: " +getLastOdd()+
-			", aircraftID: " +getID()+
-			", latitude: " +getLatitude()+
-			", longitude: " +getLongitude()+
+}/* toString() hinzugefuegt - glkeit00 */
 
-	}/* toString() hinzugefuegt - glkeit00 */
+
+
+
+
 }
