@@ -2,6 +2,7 @@
 
 
 
+
 public final class AirborneVelocityMessage extends AdsMessage{
 										
 	//Constructor for Subtype 1/2:

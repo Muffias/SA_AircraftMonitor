@@ -2,6 +2,7 @@
 
 
 
+
 public final class SixBitASCII {
 public static String bin2ASCII(String binString)
 {

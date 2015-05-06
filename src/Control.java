@@ -1,9 +1,10 @@
+
 import java.io.IOException;
 import java.net.InetSocketAddress;
 import redis.clients.jedis.Jedis;
 import com.sun.net.httpserver.HttpServer;
 
-public final class Main {
+public final class Control {
 public static void main(String[] args) throws IOException
 {
 	Jedis jed = new Jedis ("localhost");

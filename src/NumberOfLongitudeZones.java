@@ -2,6 +2,7 @@
 
 
 
+
 final class NumberOfLongitudeZones
 {
 	private static NumberOfLongitudeZones instance;

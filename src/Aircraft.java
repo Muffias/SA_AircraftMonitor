@@ -1,3 +1,4 @@
+
 public final class Aircraft {
 private double 	velocity, //absolute Velocity of the aircraft
 				veloAngle;	//Angle in degrees for the direction of flight
@@ -143,9 +144,9 @@ public String toString()
 		", velocity: " +getVelocity()+
 		", veloAngle: " +getVeloAngle()+
 		", lastOdd: " +getLastOdd()+
-		", aircraftID: " +getID();
-		//", latitude: " +getLatitude()+
-		//", longitude: " +getLongitude();
+		", aircraftID: " +getID()+
+		", latitude: " +latitude+
+		", longitude: " +longitude;
 
 }/* toString() hinzugefuegt - glkeit00 */
 

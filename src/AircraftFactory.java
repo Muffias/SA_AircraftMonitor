@@ -1,3 +1,4 @@
+
 public final class AircraftFactory
 {
 	private static AircraftFactory instance;

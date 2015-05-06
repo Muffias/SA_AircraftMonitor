@@ -1,4 +1,5 @@
 
+
 public final class AirborneIdentificationMessage extends AdsMessage{
 	public AirborneIdentificationMessage(String binarySentence, int messageTypeD, int originator, long time)
 	{

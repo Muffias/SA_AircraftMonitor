@@ -1,8 +1,4 @@
-/* Http2Redis.java
-   - fetches ADS-B sentences from the WEB server http://flugmon-it.hs-esslingen.de
-   - publishes each sentence in redis under key="ads.sentence"
-   please note: this requires a running Redis server instance
-*/
+
 
 
 // jedis import
@@ -80,9 +76,4 @@ public final class A_Http2Redis implements Runnable {
 		default: System.out.println("Unbekannter Message-Type@A_Http2Redis");break;
 		}
     }
-	public String toString()
-	{
-		return "";// super.toString()+
-			//", Instance: " +getInstance()+
-	}/* toString() hinzugefuegt - glkeit00 */
 }

@@ -1,4 +1,4 @@
- /*Obsolete since 06.05.2015
+
 
 public final class AirbornePositionMessage extends AdsMessage{
 
@@ -67,4 +67,4 @@ public final class AirbornePositionMessage extends AdsMessage{
 	
 
 }
-/*
+

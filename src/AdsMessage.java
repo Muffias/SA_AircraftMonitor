@@ -1,6 +1,7 @@
 
 
 
+
 import java.sql.Timestamp;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -57,7 +58,8 @@ public String toString()
 	return super.toString()+
 			", messageTypeD: " +getMessageTypeD()+
 			", OriginatorD: " +getOriginatorD()+
-			", TimeStamp: " +getTimeStamp();
+			", TimeStamp: " +getTimeStamp()+
+			", binarySentence: " + binarySentence;
 	/* toString() hinzugefuegt - glkeit00 */
 }
 public String toJedisString()
