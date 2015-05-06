@@ -86,12 +86,17 @@ public final class AirborneVelocityMessage extends AdsMessage{
 	}
 	public boolean getMovingWest()
 	{
+		
+		boolean result = false;
 		switch(getMessageSubType())
 		{
 		case 1:
-		case 2: return BooleanHelper.string2boolean(binarySentence,13);
-		default: System.out.println("Error in getMovingWest");return false;
+		case 2: if(binarySentence.charAt(13) != '0')
+					result = true; 
+				break;
+		default: System.out.println("Error in getMovingWest");break;
 		}
+		return result;
 		
 	}
 	public int getEastWestVelocity()
@@ -108,11 +113,16 @@ public final class AirborneVelocityMessage extends AdsMessage{
 	}
 	public boolean getMovingSouth()
 	{
+		boolean result = false;
 		switch(getMessageSubType())
 		{
-		case 1: case 2:return BooleanHelper.string2boolean(binarySentence,24);
-		default: System.out.println("Error in getMovingSouth"); return false;
+		case 1: case 2:
+			if(binarySentence.charAt(24) != '0')
+				result = true;
+			break;
+		default: System.out.println("Error in getMovingSouth"); break;
 		}
+		return result;
 		
 	}
 	public int getNorthSouthVelocity()

@@ -1,4 +1,4 @@
-
+ /*Obsolete since 06.05.2015
 
 public final class AirbornePositionMessage extends AdsMessage{
 
@@ -24,11 +24,17 @@ public final class AirbornePositionMessage extends AdsMessage{
 	}
 	public boolean isOdd()
 	{
-		return BooleanHelper.string2boolean(binarySentence, 21);
+		boolean result = false;
+		if(binarySentence.charAt(21) != '0')
+			result = true;
+		return result;
 	}
 	public boolean getTimeFlag()
 	{
-		return BooleanHelper.string2boolean(binarySentence, 20);
+		boolean result = false;
+		if(binarySentence.charAt(20) != '0')
+			result = true;
+		return result;
 	}
 	public int getLatitude()
 	{
@@ -61,3 +67,4 @@ public final class AirbornePositionMessage extends AdsMessage{
 	
 
 }
+/*
