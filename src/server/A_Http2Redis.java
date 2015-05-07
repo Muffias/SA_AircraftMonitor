@@ -1,3 +1,4 @@
+package server;
 
 
 
@@ -5,6 +6,13 @@
 import java.io.BufferedInputStream;
 import java.net.URL;
 import java.net.URLConnection;
+
+import domain.AdsMessage;
+import domain.AirborneIdentificationMessage;
+import domain.AirbornePositionMessage;
+import domain.AirborneVelocityMessage;
+
+import factory.AdsMessageFactory;
 
 import redis.clients.jedis.Jedis;
 

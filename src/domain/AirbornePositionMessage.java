@@ -1,3 +1,4 @@
+package domain;
 
 
 public final class AirbornePositionMessage extends AdsMessage{

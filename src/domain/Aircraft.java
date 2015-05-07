@@ -1,3 +1,4 @@
+package domain;
 
 public final class Aircraft {
 private double 	velocity, //absolute Velocity of the aircraft

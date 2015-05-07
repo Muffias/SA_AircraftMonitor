@@ -1,3 +1,6 @@
+package domain;
+import translator.SixBitASCII;
+
 
 
 public final class AirborneIdentificationMessage extends AdsMessage{

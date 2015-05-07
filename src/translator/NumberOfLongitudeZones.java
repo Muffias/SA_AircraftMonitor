@@ -1,9 +1,10 @@
+package translator;
 
 
 
 
 
-final class NumberOfLongitudeZones
+public final class NumberOfLongitudeZones
 {
 	private static NumberOfLongitudeZones instance;
 	public static NumberOfLongitudeZones getInstance()
