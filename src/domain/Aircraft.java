@@ -18,8 +18,9 @@ public Aircraft(int aircraftID)
 	flightNo = "";
 }
 
-public Aircraft(String jedisString)//aircraftID+","+flightNo+"."+velocity+";"+veloAngle+":"+latitude+"-"+longitude+"_"+lastOdd+"+"+msg_even.toJedisString()+"*"+msg_odd.toJedisString()+"#";
+public Aircraft(String jedisString)// JedisString comma seperated: aircraftID,fligthNo,velocity,veloAngle,latitude,longitude,lastOdd,even,(odd)
 {
+	System.out.println("JedisString: "+jedisString);
 	String even = new String("");
 	String odd = new String ("");
 	String entry [] = jedisString.split(",");
@@ -38,6 +39,7 @@ public Aircraft(String jedisString)//aircraftID+","+flightNo+"."+velocity+";"+ve
 	}
 	if (!even.equals(""))
 		msg_even = new AirbornePositionMessage(even);
+	
 	if (!odd.equals(""))
 		msg_odd = new AirbornePositionMessage(odd);
 	
@@ -123,6 +125,10 @@ public void print()
 		System.out.println("Longitude: "+longitude);
 	
 	System.out.println("FlightNo: "+flightNo);
+	if(msg_odd != null)
+		System.out.println("LastOddMessage:"+msg_odd.toString());
+	if(msg_even != null)
+		System.out.println("LastEvenMessage:"+msg_even.toString());
 }
 public String toJedisKey()
 {

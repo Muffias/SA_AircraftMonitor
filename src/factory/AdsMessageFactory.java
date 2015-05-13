@@ -33,7 +33,11 @@ public final class AdsMessageFactory
 		int messageType = Integer.parseInt(binarySentence.substring(32,37),2);
 		int originator = Integer.parseInt(binarySentence.substring(8,32),2);
 		long time = Long.valueOf(  (sentence.substring(sentence.lastIndexOf(',')+2,sentence.lastIndexOf('.')+4)).replace(".", "") );
-		
+		System.out.println("payload: "+payload);
+		System.out.println("binarySentence:"+binarySentence);
+		System.out.println("messageType: "+messageType);
+		System.out.println("originator: "+originator);
+		System.out.println("time: "+time);
 		
 		//Switching the messageTypes in order to deliver the correct MessageType-Objects
 		switch(messageType)
