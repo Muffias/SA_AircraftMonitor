@@ -15,7 +15,8 @@ public final class JedisAircraftServer extends JedisPubSub
 	public void onMessage(String channel, String message) 
 	{
 		//Aircraft update/Statische Methode der Aircraft Factory aufrufen, sodass die Nachricht verarbeitet werden kann
-				jedisClient = new Jedis("localhost");
+				if(jedisClient == null)
+					jedisClient = new Jedis("localhost");
 				String entry[] = message.split(";"); // 
 				String aircraftString = jedisClient.get(entry[1]);
 				Aircraft currentAircraft;
