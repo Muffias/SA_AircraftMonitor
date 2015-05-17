@@ -48,7 +48,7 @@ public final class A_Http2Redis implements Runnable {
 		    { 
 		    	bytesRead = bis.read(buffer);
 				String message = new String(buffer,0,bytesRead);;
-				
+				System.out.println("message::::"+message);
 				//Switching the messageTypes in order to deliver the correct MessageType-Objects
 				//// and publish sentence in redis
 				if(message.indexOf('!') > 0) 
