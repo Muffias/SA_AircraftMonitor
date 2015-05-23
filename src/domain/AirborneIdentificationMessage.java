@@ -1,10 +1,11 @@
 package domain;
+import exception.AdsMessageException;
 import translator.SixBitASCII;
 
 
 
 public final class AirborneIdentificationMessage extends AdsMessage{
-	public AirborneIdentificationMessage(String binarySentence, int messageTypeD, int originator, long time)
+	public AirborneIdentificationMessage(String binarySentence, int messageTypeD, int originator, long time) throws AdsMessageException
 	{
 		super(binarySentence,messageTypeD,originator,time);
 	}

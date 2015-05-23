@@ -1,5 +1,7 @@
 package domain;
 
+import exception.AdsMessageException;
+
 
 
 
@@ -7,7 +9,7 @@ package domain;
 public final class AirborneVelocityMessage extends AdsMessage{
 										
 	//Constructor for Subtype 1/2:
-	public AirborneVelocityMessage(String binarySentence, int messageTypeD,int originatorD,long time) 
+	public AirborneVelocityMessage(String binarySentence, int messageTypeD,int originatorD,long time) throws AdsMessageException 
 	{
 		super(binarySentence,messageTypeD, originatorD, time);
 	}

@@ -1,0 +1,34 @@
+----------------------------------------------------------------------------
+Info:
+
+
+Bei allen Fehlerklassen handelt es sich um Fehler, welche von JedisDataException
+abgeleitet sind.
+Hierarchie: Object-throwable-exception-RuntimeException-JedisDataException-UnsereFehlerKlasse
+-->Es handelt sich also um Laufzeitfehler.
+Laufzeitfehler müssen nicht mit einem try-catch-Block umgeben werden.
+Die Klassen MUESSEN von JedisException abgeleitet sein, da das Programm auf dem
+publish subsrcibe Prinzip aufbaut, sprich die Funktion onMessage nutzt.
+Die Funktion onMessage() kann keine Fehler (außer Laufzeitfehler) werfen
+--> Um onMessage() nutzen zu können zur Fehleranalyse nur Laufzeitfehler genutzt werden.
+
+-----------------------------------------------------------------------------
+
+AdsMessageException:
+0	Binary Sentence too short
+1	Jedis String not available at ctor
+2	Jedis String does not contain enough arguments at ctor
+
+AircraftException
+100	Jedis String not available at ctor
+101	Jedis String does not contain enough arguments
+
+AdsMessageFactoryException
+200	Sentence not available at sentece2Message()-conversion"	
+201	JSON Start identifier (*) or JSON End Identifier (;) not available in sentence at sentece2Message()-conversion
+202 JSON Start identifier (*) index is greater than JSON End Identifier (;) index in sentence at sentece2Message()-conversion
+
+AircraftFactoryException
+300	String msg does not contain enough parameters at message2Aircraft()
+301 String msg does not contain enough parameters at updateIdentification()
+302	String msg does not contain enough parameters at updateVelocity()

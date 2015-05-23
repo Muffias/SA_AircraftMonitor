@@ -1,6 +1,7 @@
 package server;
 
 import domain.Aircraft;
+import exception.AdsMessageException;
 import factory.AircraftFactory;
 import redis.clients.jedis.Jedis;
 import redis.clients.jedis.JedisPubSub;
@@ -12,7 +13,7 @@ public final class JedisAircraftServer extends JedisPubSub
 	private Jedis jedisClient;
 	
 	@Override
-	public void onMessage(String channel, String message) 
+	public void onMessage(String channel, String message)
 	{
 		//Aircraft update/Statische Methode der Aircraft Factory aufrufen, sodass die Nachricht verarbeitet werden kann
 				if(jedisClient == null)

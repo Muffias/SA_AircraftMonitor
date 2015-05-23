@@ -10,6 +10,8 @@ import domain.AdsMessage;
 import domain.AirborneIdentificationMessage;
 import domain.AirbornePositionMessage;
 import domain.AirborneVelocityMessage;
+import exception.AdsMessageException;
+import exception.AdsMessageFactoryException;
 
 /*
  * This class creates Messages and holds Methods to parse the Messages
@@ -24,9 +26,21 @@ public final class AdsMessageFactory
 			instance = new AdsMessageFactory();
 		return instance;
 	}
-	public AdsMessage sentence2Message(String sentence)
+	public AdsMessage sentence2Message(String sentence) throws AdsMessageException
 	{
+		if(sentence == null || sentence.length() == 0)
+			throw new AdsMessageFactoryException(200, "Sentence not available at sentece2Message()-conversion",sentence,"","",-1,-1,-1);
+		if(sentence.indexOf('*') == -1 || sentence.indexOf(';') == -1)
+			throw new AdsMessageFactoryException(201, "JSON Start identifier (*) or JSON End Identifier (;) not available in sentence at sentece2Message()-conversion",sentence,"","",-1,-1,-1);
+		if(sentence.indexOf('*') >= sentence.indexOf(';'))
+			throw new AdsMessageFactoryException(202, "JSON Start identifier (*) index is greater than JSON End Identifier (;) index in sentence at sentece2Message()-conversion",sentence,"","",-1,-1,-1);
+		
 		String payload = sentence.substring(sentence.indexOf('*'),sentence.indexOf(';'));
+		
+		if(sentence.indexOf(';') - sentence.indexOf('*') != 29) //TODO: Double Check Me!
+			throw new AdsMessageFactoryException(203, "Wrong Payload length in sentence at sentece2Message()-conversion. Distance from end-Identifier (;) to start-identifier should be 29, but is: " + String.valueOf(sentence.indexOf(';') - sentence.indexOf('*')) ,sentence,payload,"",-1,-1,-1);
+
+		
 		String binarySentence = (String.format("%112s",(new BigInteger(payload.substring(1),16) ).toString(2))).replace(' ','0');
 		
 		//Decoding of Message(Sub-)Type and so on
