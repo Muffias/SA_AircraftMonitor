@@ -32,11 +32,3 @@ AircraftFactoryException
 300	String msg does not contain enough parameters at message2Aircraft()
 301 String msg does not contain enough parameters at updateIdentification()
 302	String msg does not contain enough parameters at updateVelocity()
-
-SixBitASCIIException
-400 Binary String size mismatch
-
-Http2RedisException
-500	Unknown Error while trying to open connection or while trying to read data from Flugmon-server.
-501	String received from Flugmon werbserver does not match the pattern. Message is checked from pos 0 to 38 and must be equal to :\n{\"subscribe\":[\"message\",\"ads.sentence\
-

@@ -1,6 +1,5 @@
 package domain;
 import exception.AdsMessageException;
-import exception.SixBitASCIIException;
 import translator.SixBitASCII;
 
 
@@ -10,7 +9,7 @@ public final class AirborneIdentificationMessage extends AdsMessage{
 	{
 		super(binarySentence,messageTypeD,originator,time);
 	}
-	public String getAircraftID() throws SixBitASCIIException
+	public String getAircraftID()
 	{
 		return SixBitASCII.bin2ASCII(binarySentence.substring(8,56));
 	}
