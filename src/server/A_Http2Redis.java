@@ -99,7 +99,7 @@ public final class A_Http2Redis implements Runnable {
 				 break;
 		case 0: case 5: case 6: case 7: case 8: case 23: case 24: case 25: case 26: case 27: case 28: case 29: case 30: case 31: //Message Types from 0 to 31 are allowed. Those listed here are reserverd and not handled in this program.
 				System.err.println("Unhandeled Message-Type@A_Http2Redis. Type: "+ msg.getMessageTypeD());break;
-		default:  throw new Http2RedisException(502, "Unknown Message type received from server.");
+		default:  throw new Http2RedisException(502, "Unknown Message type received from server. Message Type exeeded the given range (0-31): "+msg.getMessageTypeD());
 		}
     }
 }
