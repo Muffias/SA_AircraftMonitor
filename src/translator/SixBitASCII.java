@@ -1,5 +1,7 @@
 package translator;
 
+import exception.SixBitASCIIException;
+
 
 
 
@@ -21,12 +23,17 @@ public static String bin2ASCII(String binString)
 		
 	}
 	else
-		result = "404 Plane not Found (SIXBIT ERROR)";
+		throw new SixBitASCIIException(400, "Binary String size mismatch. String length % 6 should be 0 but is: " + String.valueOf(binString.length() %6), binString);
 	
 	return result;	
 }
-public static void main(String[] args)
+/*public static void main(String[] args)
 {
-	System.out.println(bin2ASCII("000100110000000001001110001001000101001100"));
-}
+	try {
+		System.out.println(bin2ASCII("000100110000000001001110001001000101001100"));
+	} catch (SixBitASCIIException e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+	}
+}*/
 }
