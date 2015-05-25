@@ -30,7 +30,7 @@ public final class AircraftFactory
 		String entry [] = msg.split(";");
 		if(entry.length < 3)
 			throw new AircraftFactoryException(301,"String msg does not contain enough parameters at updateIdentification().Size: "+entry.length+"/Min 3",msg);
-		aircraft.setFlightNo(entry[2]);
+		aircraft.setFlightNo(entry[4]);
 	}
 	public void updateVelocity(String msg, Aircraft aircraft) throws AircraftFactoryException//when updateVelocity is called String msg is created by AirborneVelocityMessage. Therby msg = messageTypeD;originatorD;Airspeed;HeadingDegrees
 	{
@@ -38,8 +38,8 @@ public final class AircraftFactory
 		if(entry.length < 4)
 			throw new AircraftFactoryException(302,"String msg does not contain enough parameters at updateVelocity().Size: "+entry.length+"/Min 4",msg);
 		System.out.println("Update"+msg);
-		aircraft.setVelocity(Double.parseDouble(entry[2]));
-		aircraft.setVeloAngle(Double.parseDouble(entry[3]));
+		aircraft.setVelocity(Double.parseDouble(entry[4]));
+		aircraft.setVeloAngle(Double.parseDouble(entry[5]));
 	}
 	public void updatePosition(String msg, Aircraft aircraft) throws AdsMessageException//when updatePosition is called String msg is created by AirbornePositionMessage. Therby msg = messageTypeD;originatorD;binarySentence;Timestamp.getTime()
 	{

@@ -209,30 +209,6 @@ public final class AirborneVelocityMessage extends AdsMessage{
 		return Integer.parseInt(binarySentence.substring(5,8),2);
 	}
 	//END SUBTYPE 3/4 getter Methods / Decoding
-	public void print()
-	{
-		super.print();
-		System.out.println("MessageSubType: \t\t\t"+getMessageSubType());   
-		System.out.println("navigationAccuracy: \t\t"+ getNavigationAccuracy());
-		System.out.println("vertical Rate Source: \t\t"+ this.getVerticalRateSource());
-		System.out.println("vertical Rate Sign: \t\t" + this.getVerticalRateSign());
-		System.out.println("Difference Baro-Alto: \t\t"+this.getDeltaBaroAltoAttitude());
-		switch(getMessageSubType())
-		{
-		case 1: case 2:		System.out.println("movingWest: \t\t\t"+ this.getMovingWest());
-							System.out.println("movingSouth: \t\t\t"+this.getMovingSouth());
-							System.out.println("EastWestVelocity: \t\t"+ this.getEastWestVelocity());
-							System.out.println("NorthSouthVelocity: \t\t"+ this.getNorthSouthVelocity());
-							break;
-		case 3:	case 4:		System.out.println("Airspeed: \t\t"+ this.getAirspeed());
-							System.out.println("Heading Status: \t\t"+ this.getHeadingStatusAvailable());
-							System.out.println("Heading Degrees: \t\t"+this.getHeadingDegrees());
-							System.out.println("isTrueAirspeed: \t\t"+this.getTrueAirspeedType());
-							break;
-		default:			System.out.println("----UNKNOWN SUBTYPE-----");break;
-		}
-		
-	}
 	public String toString()
 	{
 		String res = super.toString();
@@ -241,9 +217,7 @@ public final class AirborneVelocityMessage extends AdsMessage{
 	}
 	public String toJedisString()
 	{
-		String res = super.toJedisString();
-		res += ";"+getAirspeed()+";"+getHeadingDegrees();
-		return res;
+		return super.toJedisString()+";"+getAirspeed()+";"+getHeadingDegrees();
 	}
 
 	

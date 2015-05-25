@@ -61,7 +61,11 @@ public final class AdsMessageFactory
 	
 		case 9: //9-18, 20-22 Airborne Position Message
 		case 10:case 11: case 12:case 13:case 14:case 15:case 16:case 17:case 18: case 20:case 21:
-		case 22: return new AirbornePositionMessage(binarySentence,messageType,originator,time);
+		case 22: 
+			AirbornePositionMessage msg = new AirbornePositionMessage(binarySentence,messageType,originator,time);
+			System.out.println("Position: "+msg);
+			return msg;
+			//return new AirbornePositionMessage(binarySentence,messageType,originator,time);
 		
 		case 19: return new AirborneVelocityMessage(binarySentence, messageType, originator, time);
 		default: return new AdsMessage(binarySentence,messageType,originator,time);

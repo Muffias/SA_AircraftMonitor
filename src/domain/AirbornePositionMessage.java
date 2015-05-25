@@ -48,24 +48,13 @@ public final class AirbornePositionMessage extends AdsMessage{
 		return Integer.parseInt(binarySentence.substring(39,56),2);
 	}
 	
-	public void print()
-	{
-		super.print();
-		System.out.println("Altitude: \t\t\t"+getAltitude());
-		System.out.println("Time Flag: \t\t\t"+getTimeFlag());
-		System.out.println("isOdd: \t\t\t\t"+isOdd());
-		System.out.println("Latitude: \t\t\t"+getLatitude());
-		System.out.println("Longitude: \t\t\t"+getLongitude());
-	}
 	public String toString()
 	{
-		return super.toString()+", Lat: "+getLatitude()+", Lon: "+getLongitude();
+		return super.toString()+", Altitude: "+getAltitude()+", isOdd: "+isOdd()+", TimeFlag: "+getTimeFlag()+", Lat: "+getLatitude()+", Lon: "+getLongitude();
 	}
 	public String toJedisString()
 	{
-		String res = super.toJedisString();
-		res += ";"+binarySentence+";"+tStamp.getTime();
-		return res;
+		return super.toJedisString();
 	}
 	
 

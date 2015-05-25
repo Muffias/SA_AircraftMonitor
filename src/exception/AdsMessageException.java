@@ -8,16 +8,10 @@ public class AdsMessageException extends JedisDataException
 {
 	private AdsMessage adsMessage;
 	
-	
-	public AdsMessageException(int errNo, String errText, AdsMessage msg)
+	public AdsMessageException(int errNo, String errText)
 	{
-		super("AdsMessageException No"+ errNo +": " + errText + "\n" + "Message Content: --Begin--\n" + msg.toString() +"\n--End Msg Content--");
-		this.adsMessage= msg;
-	}
-	
-	public AdsMessage getAdsMessage()
-	{
-		return this.adsMessage;
-	}
+		super("AdsMessageException No"+ errNo +": " + errText);
 
+	}
+	
 }

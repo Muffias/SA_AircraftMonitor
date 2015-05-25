@@ -35,7 +35,7 @@ public final class JedisAircraftServer extends JedisPubSub
 					aircraftFactory.updatePosition(message, currentAircraft); break;
 				case "ads.msg.velocity": 
 					aircraftFactory.updateVelocity(message, currentAircraft); break;
-					default: System.out.println("Unknown Message"); break;
+				default: System.out.println("Unknown Message"); break;
 				}
 				jedisClient.set(currentAircraft.toJedisKey(),currentAircraft.toJedisString());
 				jedisClient.expire(currentAircraft.toJedisKey(),300);
