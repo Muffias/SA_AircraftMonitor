@@ -9,3 +9,4 @@ bin
 JArchitectOut
 META-INF
 redis
+*.classpath
