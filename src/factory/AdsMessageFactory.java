@@ -30,6 +30,8 @@ public final class AdsMessageFactory
 	{
 		if(sentence == null || sentence.length() == 0)
 			throw new AdsMessageFactoryException(200, "Sentence not available at sentece2Message()-conversion",sentence,"","",-1,-1,-1);
+		if(!(sentence.length() == 101 || sentence.length() == 99)  )//99?
+			throw new AdsMessageFactoryException(203, "Sentence has wrong length (should be 99) at sentece2Message()-conversion. Length = "+sentence.length(),sentence,"","",-1,-1,-1);
 		if(sentence.indexOf('*') == -1 || sentence.indexOf(';') == -1)
 			throw new AdsMessageFactoryException(201, "JSON Start identifier (*) or JSON End Identifier (;) not available in sentence at sentece2Message()-conversion",sentence,"","",-1,-1,-1);
 		if(sentence.indexOf('*') >= sentence.indexOf(';'))

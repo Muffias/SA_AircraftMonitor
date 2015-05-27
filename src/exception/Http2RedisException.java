@@ -11,7 +11,7 @@ public class Http2RedisException extends JedisDataException{
 	private String message;
 	public Http2RedisException(int errNo, String errDescription, byte [] buffer, URLConnection con, String message)
 	{
-		super("Http2RedisException No. " + errNo + ": " + errDescription + "\n --Begin Buffer--\n" + buffer + "\n --end Buffer--\n --Begin URL--\n"+con.getURL()+"\n--End URL--\n--Begin Message--\n"+message+"\n--End Message--");
+		super("Http2RedisException No. " + errNo + ": " + errDescription + "\n --Begin Buffer--\n" + buffer.toString() + "\n --end Buffer--\n --Begin URL--\n"+con.getURL()+"\n--End URL--\n--Begin Message--\n"+message+"\n--End Message--");
 		this.buffer = buffer;
 		this.con = con;
 		this.message = message;

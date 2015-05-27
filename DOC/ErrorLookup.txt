@@ -43,6 +43,7 @@ AdsMessageFactoryException
 200	Sentence not available at sentece2Message()-conversion"	
 201	JSON Start identifier (*) or JSON End Identifier (;) not available in sentence at sentece2Message()-conversion
 202 JSON Start identifier (*) index is greater than JSON End Identifier (;) index in sentence at sentece2Message()-conversion
+203	Sentence has wrong length (should be 99) at sentece2Message()-conversion.
 
 AircraftFactoryException
 300	String msg does not contain enough parameters at message2Aircraft()

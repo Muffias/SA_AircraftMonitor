@@ -50,6 +50,11 @@ public final class AircraftFactory
 		else
 			aircraft.setEvenMsg(adsMsg);
 		calculatePosition(aircraft);
+		
+		if(adsMsg.isOdd())		//now we check wether the msg is even or odd and recalculate the position.
+			{System.out.println("ODD:");System.out.println(adsMsg.toString());System.out.println(adsMsg.toJedisString());}
+		else
+		{System.out.println("EVEN:");System.out.println(adsMsg.toString());System.out.println(adsMsg.toJedisString());}
 	}
 	
 

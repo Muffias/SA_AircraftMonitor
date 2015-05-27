@@ -58,6 +58,7 @@ public final class A_Http2Redis implements Runnable {
 				System.out.println("message::::"+message.substring(0, 38));
 				//Switching the messageTypes in order to deliver the correct MessageType-Objects
 				//// and publish sentence in redis
+				System.out.println(message.substring(0, 38));
 				if("{\"subscribe\":[\"message\",\"ads.sentence\"".equals(message.substring(0, 38))  && message.indexOf('!') > 0) //{"subscribe":["message","ads.sentence"....!ADS-B*...  <--Strings from Flugmon server look like this
 				{
 					msg = msgFactory.sentence2Message(message);
@@ -67,16 +68,12 @@ public final class A_Http2Redis implements Runnable {
 					}
 
 				}
-				else if(!message.equals("{\"subscribe\":[\"subscribe\",\"ads.sentence\",1]}"))
+				/*else if(!message.equals("{\"subscribe\":[\"subscribe\",\"ads.sentence\",1]}"))
 				{
 					throw new Http2RedisException(501, "String received from Flugmon werbserver does not match the pattern. Message is checked from pos 0 to 38 and must be equal to :\n{\"subscribe\":[\"message\",\"ads.sentence\".",buffer,con,message);
-				}
+				}*/
 				
 		    } // while
-		} catch (RuntimeException e) 
-		{
-		   throw e;
-				
 		} 
 		catch(IOException e)
 		{
