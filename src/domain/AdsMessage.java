@@ -19,8 +19,8 @@ protected final String binarySentence;
 
 public AdsMessage(String binarySentence, int messageTypeD, int originatorD, long time) throws AdsMessageException
 {
-	if(binarySentence.length() < 112)//14 bytes
-		throw new AdsMessageException(0,"Binary Sentence too short (binarySentence size =" + binarySentence.length() + ").");
+	if(binarySentence.length() != 112)//14 bytes
+		throw new AdsMessageException(0,"Binary Sentence mismatched size. Sentence size must be 112 bit (binarySentence size =" + binarySentence.length() + ").");
 	
 	this.binarySentence = binarySentence.substring(32); //from index 32 --> end
 	this.messageTypeD=messageTypeD;

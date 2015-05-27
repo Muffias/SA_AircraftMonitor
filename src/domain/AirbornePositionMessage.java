@@ -22,7 +22,7 @@ public final class AirbornePositionMessage extends AdsMessage{
 			factor = 25;
 		int result = factor*Integer.parseInt(binarySentence.substring(8,15)+binarySentence.substring(16,20),2);
 		if(result < -1000 || result > 50175)
-			System.out.println("Error at getAltitude!");
+			throw new AdsMessageException(3, "Plausibility Check failed at altitude calculation: Accepted range -1000 < x < 50175. x is: " + result);
 		return result;
 	}
 	public boolean isOdd()
@@ -35,7 +35,7 @@ public final class AirbornePositionMessage extends AdsMessage{
 	public boolean getTimeFlag()
 	{
 		boolean result = false;
-		if(binarySentence.charAt(20) != '0')
+		if(binarySentence.charAt(20) == '1')
 			result = true;
 		return result;
 	}

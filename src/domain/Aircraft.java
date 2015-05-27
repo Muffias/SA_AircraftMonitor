@@ -21,8 +21,7 @@ public Aircraft(int aircraftID)
 	flightNo = "";
 }
 
-public Aircraft(String jedisString) throws AdsMessageException// JedisString comma seperated: aircraftID,fligthNo,velocity,veloAngle,latitude,longitude,lastOdd,even,(odd)
-, AircraftException
+public Aircraft(String jedisString) throws AircraftException// JedisString comma seperated: aircraftID,fligthNo,velocity,veloAngle,latitude,longitude,lastOdd,even,(odd)
 {
 	
 	if(jedisString == null || jedisString.length() == 0)
