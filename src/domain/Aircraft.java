@@ -1,5 +1,8 @@
 package domain;
 
+import exception.AdsMessageException;
+import exception.AircraftException;
+
 public final class Aircraft {
 private double 	velocity, //absolute Velocity of the aircraft
 				veloAngle;	//Angle in degrees for the direction of flight
@@ -18,12 +21,17 @@ public Aircraft(int aircraftID)
 	flightNo = "";
 }
 
-public Aircraft(String jedisString)// JedisString comma seperated: aircraftID,fligthNo,velocity,veloAngle,latitude,longitude,lastOdd,even,(odd)
+public Aircraft(String jedisString) throws AircraftException// JedisString comma seperated: aircraftID,fligthNo,velocity,veloAngle,latitude,longitude,lastOdd,even,(odd)
 {
+	
+	if(jedisString == null || jedisString.length() == 0)
+		throw new AircraftException(100,"JedisString not available at ctor.",this);
 	System.out.println("JedisString: "+jedisString);
 	String even = new String("");
 	String odd = new String ("");
 	String entry [] = jedisString.split(",");
+	if(entry.length < 7)
+		throw new AircraftException(101,"JedisString does not contain enough arguments ("+entry.length+"/min7).",this);
 	aircraftID = Integer.parseInt(entry[0]);
 	flightNo = entry[1];
 	velocity = Double.parseDouble(entry[2]);

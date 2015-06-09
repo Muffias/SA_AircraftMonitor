@@ -1,13 +1,15 @@
 package domain;
 
+import exception.AdsMessageException;
+
 
 public final class AirbornePositionMessage extends AdsMessage{
 
-	public AirbornePositionMessage(String binarySentence,int messageTypeD, int originatorD, long time) 
+	public AirbornePositionMessage(String binarySentence,int messageTypeD, int originatorD, long time) throws AdsMessageException 
 	{
 		super(binarySentence,messageTypeD, originatorD, time);
 	}
-	public AirbornePositionMessage(String jedisString)
+	public AirbornePositionMessage(String jedisString) throws AdsMessageException
 	{
 		super(jedisString);
 	}
@@ -20,7 +22,7 @@ public final class AirbornePositionMessage extends AdsMessage{
 			factor = 25;
 		int result = factor*Integer.parseInt(binarySentence.substring(8,15)+binarySentence.substring(16,20),2);
 		if(result < -1000 || result > 50175)
-			System.out.println("Error at getAltitude!");
+			throw new AdsMessageException(3, "Plausibility Check failed at altitude calculation: Accepted range -1000 < x < 50175. x is: " + result);
 		return result;
 	}
 	public boolean isOdd()
@@ -33,7 +35,7 @@ public final class AirbornePositionMessage extends AdsMessage{
 	public boolean getTimeFlag()
 	{
 		boolean result = false;
-		if(binarySentence.charAt(20) != '0')
+		if(binarySentence.charAt(20) == '1')
 			result = true;
 		return result;
 	}
@@ -46,24 +48,13 @@ public final class AirbornePositionMessage extends AdsMessage{
 		return Integer.parseInt(binarySentence.substring(39,56),2);
 	}
 	
-	public void print()
-	{
-		super.print();
-		System.out.println("Altitude: \t\t\t"+getAltitude());
-		System.out.println("Time Flag: \t\t\t"+getTimeFlag());
-		System.out.println("isOdd: \t\t\t\t"+isOdd());
-		System.out.println("Latitude: \t\t\t"+getLatitude());
-		System.out.println("Longitude: \t\t\t"+getLongitude());
-	}
 	public String toString()
 	{
-		return super.toString()+", Lat: "+getLatitude()+", Lon: "+getLongitude();
+		return super.toString()+", Altitude: "+getAltitude()+", isOdd: "+isOdd()+", TimeFlag: "+getTimeFlag()+", Lat: "+getLatitude()+", Lon: "+getLongitude();
 	}
 	public String toJedisString()
 	{
-		String res = super.toJedisString();
-		res += ";"+binarySentence+";"+tStamp.getTime();
-		return res;
+		return super.toJedisString();
 	}
 	
 

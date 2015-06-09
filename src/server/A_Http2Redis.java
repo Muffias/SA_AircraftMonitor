@@ -4,16 +4,18 @@ package server;
 
 // jedis import
 import java.io.BufferedInputStream;
+import java.io.IOException;
 import java.net.URL;
 import java.net.URLConnection;
+
+import javax.imageio.IIOException;
 
 import domain.AdsMessage;
 import domain.AirborneIdentificationMessage;
 import domain.AirbornePositionMessage;
 import domain.AirborneVelocityMessage;
-
+import exception.Http2RedisException;
 import factory.AdsMessageFactory;
-
 import redis.clients.jedis.Jedis;
 
 public final class A_Http2Redis implements Runnable {
@@ -31,11 +33,15 @@ public final class A_Http2Redis implements Runnable {
     public void run () 
     {
 	    byte[] buffer = new byte[101];
+	    URLConnection con = null;
+	    String message = null;
+	    AdsMessage msg = null;
+
 		try {
 			
 		    // make connection with the flugmon-it web server
 		    
-			URLConnection con = new URL(url2).openConnection();
+			con = new URL(url2).openConnection();
 			jedisClient = new Jedis("localhost");
 		   
 	
@@ -47,25 +53,32 @@ public final class A_Http2Redis implements Runnable {
 		    while (true) 
 		    { 
 		    	bytesRead = bis.read(buffer);
-				String message = new String(buffer,0,bytesRead);;
+		    	message = new String(buffer,0,bytesRead);;
 				System.out.println("message::::"+message);
+				System.out.println("message::::"+message.substring(0, 38));
 				//Switching the messageTypes in order to deliver the correct MessageType-Objects
 				//// and publish sentence in redis
-				if(message.indexOf('!') > 0) 
+				System.out.println(message.substring(0, 38));
+				if("{\"subscribe\":[\"message\",\"ads.sentence\"".equals(message.substring(0, 38))  && message.indexOf('!') > 0) //{"subscribe":["message","ads.sentence"....!ADS-B*...  <--Strings from Flugmon server look like this
 				{
-					AdsMessage msg = msgFactory.sentence2Message(message);
+					msg = msgFactory.sentence2Message(message);
 					if(msg != null)
 					{
 						publish(msg);
 					}
 
 				}
+				/*else if(!message.equals("{\"subscribe\":[\"subscribe\",\"ads.sentence\",1]}"))
+				{
+					throw new Http2RedisException(501, "String received from Flugmon werbserver does not match the pattern. Message is checked from pos 0 to 38 and must be equal to :\n{\"subscribe\":[\"message\",\"ads.sentence\".",buffer,con,message);
+				}*/
 				
 		    } // while
-		} catch (Exception e) 
-		{
-		    e.printStackTrace ();
 		} 
+		catch(IOException e)
+		{
+			throw new Http2RedisException(500, "Unknown Error while trying to open connection or while trying to read data from Flugmon-server.");
+		}
     } // @Override public void run()
     
     private void publish(AdsMessage msg)
@@ -81,7 +94,9 @@ public final class A_Http2Redis implements Runnable {
 				 break;
 		case 19: jedisClient.publish("ads.msg.velocity", ((AirborneVelocityMessage)msg).toJedisString());
 				 break;
-		default: System.out.println("Unbekannter Message-Type@A_Http2Redis");break;
+		case 0: case 5: case 6: case 7: case 8: case 23: case 24: case 25: case 26: case 27: case 28: case 29: case 30: case 31: //Message Types from 0 to 31 are allowed. Those listed here are reserverd and not handled in this program.
+				System.err.println("Unhandeled Message-Type@A_Http2Redis. Type: "+ msg.getMessageTypeD());break;
+		default:  throw new Http2RedisException(502, "Unknown Message type received from server. Message Type exeeded the given range (0-31): "+msg.getMessageTypeD());
 		}
     }
 }
