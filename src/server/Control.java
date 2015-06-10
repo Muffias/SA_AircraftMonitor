@@ -4,7 +4,11 @@ package server;
 import java.io.IOException;
 import java.net.InetSocketAddress;
 
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
+
 import redis.clients.jedis.Jedis;
+import redis.clients.jedis.exceptions.JedisConnectionException;
 
 import com.sun.net.httpserver.HttpServer;
 
@@ -15,9 +19,7 @@ public static void main(String[] args) throws IOException
 {
 	
 	try{
-	
-	
-	Jedis jed = new Jedis ("localhost");
+	Jedis jed = new Jedis("localhost");
 	JedisAircraftServer myAircraftServer = new JedisAircraftServer();
 	HttpServer server = HttpServer.create(new InetSocketAddress(3333), 0); 
     server.createContext( "/map.basic", new WebServer.MapBasic());
@@ -31,6 +33,10 @@ public static void main(String[] args) throws IOException
 	serverThread.start ();
 	jed.subscribe(myAircraftServer, "ads.msg.identification", "ads.msg.velocity", "ads.msg.position");
 	
+	}
+	catch(JedisConnectionException e)
+	{
+		JOptionPane.showMessageDialog(new JFrame(), "No Connection to Jedis.");
 	}
 	catch(AdsMessageException e)
 	{
@@ -54,7 +60,11 @@ public static void main(String[] args) throws IOException
 	}
 	catch(Http2RedisException e)
 	{
-		System.out.println(e.getMessage());
+		//System.out.println(e.getMessage());
+		String errorText = e.getMessage();
+		if(e.getErrorNumber() == 500)
+			errorText += "\n Maybe there is missing a OPEN-VPN Connection to HS-Esslingen";
+		JOptionPane.showMessageDialog(new JFrame(), errorText);
 	}
 	catch(Exception e)
 	{

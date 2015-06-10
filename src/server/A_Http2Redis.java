@@ -9,6 +9,8 @@ import java.net.URL;
 import java.net.URLConnection;
 
 import javax.imageio.IIOException;
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 
 import domain.AdsMessage;
 import domain.AirborneIdentificationMessage;
@@ -77,7 +79,8 @@ public final class A_Http2Redis implements Runnable {
 		} 
 		catch(IOException e)
 		{
-			throw new Http2RedisException(500, "Unknown Error while trying to open connection or while trying to read data from Flugmon-server.");
+			JOptionPane.showMessageDialog(new JFrame(),  "No. 500: Unknown Error while trying to open connection or while trying to read data from Flugmon-server.\nMaybe no OpenVPN-Exception (HS-ESSLINGEN) is established.");
+			//throw new Http2RedisException(500, "Unknown Error while trying to open connection or while trying to read data from Flugmon-server.");
 		}
     } // @Override public void run()
     

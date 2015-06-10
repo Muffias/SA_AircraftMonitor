@@ -7,6 +7,9 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.Set;
 
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
+
 import redis.clients.jedis.Jedis;
 
 import com.sun.net.httpserver.HttpExchange;
@@ -32,13 +35,21 @@ public final class WebServer {
   {	 
 	  public void handle ( HttpExchange t ) throws IOException
 	  {
+		  try
+		  {
 		   System.err.println ( "map.basic acessed" ); // send basicMap.html
 		   String response = new String ( Files.readAllBytes (Paths.get("basicMap.html") ) );
 		   t.sendResponseHeaders ( 200, response.length() );
 		   OutputStream os = t.getResponseBody();
 		   os.write ( response.getBytes() );
 		   os.close ();
+		  }
+		  catch(IOException e)
+		  {
+			  JOptionPane.showMessageDialog(new JFrame(), "Error while Accessing map.basic at Webserver."+e.getMessage()); 
+		  }
 	  }
+
     }
 
     private final static Jedis jed = new Jedis ("localhost");
